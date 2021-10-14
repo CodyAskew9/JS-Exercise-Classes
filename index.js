@@ -8,6 +8,8 @@
         + If a plane lands, its `isFlying` property gets set to false.
 */
 
+const { directive } = require("@babel/types");
+
 // EXAMPLE SOLUTION CODE:
 class Airplane {
   constructor(name) {
@@ -49,8 +51,14 @@ class Person {
 }
   eat(food){
     if(this.stomach.length < 10){
-      this.stomach.push(food)
+      this.stomach.push(food);
     }
+  }
+  poop(){
+    this.stomach = [];
+  }
+  toString(){
+    return `${this.name}, ${this.age}`;
   }
 }
 
@@ -68,8 +76,27 @@ class Person {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-class Car {
-  
+class Car { 
+  constructor(model, mpg){
+  this.model = model;
+  this.milesPerGallon = mpg;
+  this.tank = 0;
+  this.odometer = 0;
+}
+fill(gallons){
+  this.tank = this.tank + gallons
+}
+drive(dist){
+  const driveableMiles = this.tank / this.milesPerGallon;
+  if(dist <= drieableMiles){
+    this.odometer = ths.odometer + dist;
+    this.tank = this.tank - (dist / this.milesPerGallon);
+  }else{
+    this.odometer = this.odometer + driveableMiles;
+    ths.tank = 0;
+    return `I ran out of fuel at ${this.odometer} miles!`
+  }
+}
 }
 
 /*
@@ -85,7 +112,14 @@ class Car {
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
-  
+  constructor({name, age, location}){
+    this.name = name;
+    this.age = age;
+    this.location = location;
+  }
+  speak(){
+    `Hello my name is ${thi.name}, I am from${this.location}`
+  }
 }
 
 /*
@@ -102,8 +136,19 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
-
+class Instructor extends Lambdasian {
+  constructor({name, age, location, specialty, favLanguage, cathPhrase}){
+    super(name, age, location, specialty, favLanguage, cathPhrase);
+    this.specialty = specialty;
+    this.favLanguage= favLanguage;
+    this.cathPhrase = cathPhrase;
+  }
+demo(subject){
+return `Today we are learning about${subject}`;
+}
+grade(student, subject){
+return `${student.name} receives a perfect score on ${subject}`
+}
 }
 /*
   TASK 5
